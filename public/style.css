@@ -1,0 +1,157 @@
+html > body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#display {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    overflow: scroll;
+    width: 100vw;
+    height: 50vh;
+    padding: 20px 30px;
+    margin-top: auto;
+
+    #drinks {
+        display: flex;
+        flex-direction: row;
+        max-width: 100vw;
+        overflow: scroll;
+
+        .drink {
+            min-width: fit-content;
+            margin: 0 30px;
+
+            .name {
+                font-size: 2em;
+                font-weight: bold;
+                padding-bottom: 10px;
+            }
+
+            .ingredients > .ingredient {
+                font-size: 1.2em;
+            }
+        }
+    }
+}
+
+#spinner {
+    position: relative;
+    bottom: 0;
+    width: 50vh;
+    height: 50vh;
+    max-width: 90vw;
+    max-height: 90vw;
+
+    * {
+        max-height: 50vh;
+        --line-width: 5px;
+
+        position: absolute;
+        
+        margin: auto;
+        inset: 0;
+        clip-path: circle();
+        background: white;
+
+        .body {
+            width: calc(100% - 2 * var(--line-width));
+            height: calc(100% - 2 * var(--line-width));;
+            background: black;
+
+            * {
+                clip-path: none;
+            }
+
+            .wedge {
+                --angle: calc(360deg / var(--count));
+    
+                margin: 0;
+                transform-origin: bottom right;
+                transform: rotate(calc(var(--angle) * var(--i)));
+                width: 50%;
+                height: 50%;
+    
+                .name {
+                    font-size: 1.5em;
+                    text-align: center;
+                    transform-origin: bottom;
+                    transform: translate(50%) 
+                               rotate(calc(-1 * 0.5 * var(--angle))) 
+                               translate(0%, 15%);
+                    background: transparent;
+                }
+    
+                .body {
+                    width: calc(100% - var(--line-width));
+                    height: 100%;
+                    margin-right: var(--line-width);
+                    background: black;
+                }
+            }
+        }
+    }
+
+    #outerWheel {
+        z-index: 1;
+
+        .body > .wedge > .name {
+            transform: translate(50%)
+                       rotate(calc(-1 * 0.5 * var(--angle)))
+                       translate(0%, 10%);
+        }
+    }
+
+    #innerWheel {
+        z-index: 2;
+        width: 65%;
+        height: 65%;
+
+        .body > .wedge > .name {
+            transform: translate(50%)
+                       rotate(calc(-1 * 0.5 * var(--angle)))
+                       translate(0%, 15%);
+        }
+    }
+
+    #spinButton {
+        z-index: 3;
+        width: 30%;
+        height: 30%;
+        border: none;
+
+        .body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            height: 90%;
+            font-size: 3em;
+            text-transform: uppercase;
+            background: white;
+            color: black;
+        }
+    }
+
+    #spinButton:active {
+        .body {
+            background: #e9e9e9;
+        }
+    }
+
+    #pointer {
+        z-index: 4;
+        width: 2.5%;
+        height: 5%;
+        transform: translate(0, -340%);
+        clip-path: polygon(0 100%, 100% 100%, 50% 0);
+    }
+}
